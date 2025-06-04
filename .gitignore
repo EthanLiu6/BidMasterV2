@@ -1,0 +1,14 @@
+.DS_Store
+
+.idea
+__pycache__
+.mypy_cache
+.vscode
+
+.env
+
+.ipynb_checkpoints
+
+logs/*.*
+
+models
