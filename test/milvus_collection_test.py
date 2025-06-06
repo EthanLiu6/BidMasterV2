@@ -20,7 +20,7 @@ def test01_create_collection():
 
     client.drop_collection('test_collection')
 
-    schema = client.create_schema(auto_id=False, enabel_dynamic_field=True)
+    schema = client.create_schema(auto_id=False, enable_dynamic_field=True)
 
     schema.add_field(field_name="doc_id", datatype=DataType.INT64, is_primary=True, description="document id")
     schema.add_field(field_name="doc_vector", datatype=DataType.FLOAT_VECTOR, dim=3, description="document vector")
