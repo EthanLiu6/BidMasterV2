@@ -100,12 +100,22 @@ def excel2json(origin_file, target_file, origin_sheet_name=0):
     print('succeed!')
 
 
-if __name__ == '__main__':
-    # QA data
-    excel2json(origin_file='../resources/datas/QA_docs/QA_with_legal_basis.xlsx',
-               target_file='../resources/datas/QA_docs/QA_with_legal_basis.json')
+def get_dir_files_name(dir_path) -> list[str]:
+    """获取指定文件夹下的所有文件名，返回所有文件名的列表格式"""
 
-    # 标的物数据
-    excel2json(origin_file='../resources/datas/have_data/招标采购标的物信息提取训练数据.xlsx',
-               target_file='../knowledge/raw_knowledge/bid_cases/biaodewu_info.json',
-               origin_sheet_name=1)
+    if not os.path.isdir(dir_path):
+        return []
+
+    files = []
+    for entry in os.listdir(dir_path):
+        full_path = os.path.join(dir_path, entry)
+        if os.path.isfile(full_path):
+            files.append(entry)
+
+    return files
+
+
+if __name__ == '__main__':
+    project_path = find_project_root()
+    laws_files = get_dir_files_name(project_path.joinpath('processed_data/laws'))
+    print(laws_files)
