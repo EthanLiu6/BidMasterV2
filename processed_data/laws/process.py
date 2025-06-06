@@ -34,11 +34,17 @@ if __name__ == '__main__':
 
     # laws_csv2json('processed_data/laws/招标投标领域公平竞争审查规则.csv',
     #               'processed_data/laws/招标投标领域公平竞争审查规则.json')
-    laws_csv2json('processed_data/laws/政府采购质疑和投诉办法.csv',
-                  'processed_data/laws/政府采购质疑和投诉办法.json')
-    laws_csv2json('processed_data/laws/中华人民共和国招标投标法实施条例.csv',
-                  'processed_data/laws/中华人民共和国招标投标法实施条例.json')
-    laws_csv2json('processed_data/laws/中华人民共和国政府采购法.csv',
-                  'processed_data/laws/中华人民共和国政府采购法.json')
-    laws_csv2json('processed_data/laws/中华人民共和国政府采购法实施条例.csv',
-                  'processed_data/laws/中华人民共和国政府采购法实施条例.json')
+    # laws_csv2json('processed_data/laws/政府采购质疑和投诉办法.csv',
+    #               'processed_data/laws/政府采购质疑和投诉办法.json')
+    # laws_csv2json('processed_data/laws/中华人民共和国招标投标法实施条例.csv',
+    #               'processed_data/laws/中华人民共和国招标投标法实施条例.json')
+    # laws_csv2json('processed_data/laws/中华人民共和国政府采购法.csv',
+    #               'processed_data/laws/中华人民共和国政府采购法.json')
+    # laws_csv2json('processed_data/laws/中华人民共和国政府采购法实施条例.csv',
+    #               'processed_data/laws/中华人民共和国政府采购法实施条例.json')
+    laws_csv2json('processed_data/laws/政府采购货物和服务招标投标管理办法.csv',
+                  'processed_data/laws/政府采购货物和服务招标投标管理办法.json')
+
+    laws_csv2json('processed_data/laws/政府采购促进中小企业发展管理办法.csv',
+                  'processed_data/laws/政府采购促进中小企业发展管理办法.json')
+
