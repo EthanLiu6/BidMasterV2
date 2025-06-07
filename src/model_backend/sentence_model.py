@@ -1,7 +1,7 @@
 from typing import List
 from transformers import AutoTokenizer, AutoModel
 import torch.nn.functional as F
-from base_model import BaseModel
+from src.model_backend.base_model import BaseModel
 
 
 class SentenceModel(BaseModel):

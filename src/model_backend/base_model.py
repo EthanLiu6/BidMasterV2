@@ -8,6 +8,7 @@ class BaseModel(ABC):
         self.model_name = model_name
         self.tokenizer = self._load_tokenizer()
         self.model = self._load_model()
+        self.dim = self.model.config.hidden_size
 
     @abstractmethod
     def _load_tokenizer(self):
