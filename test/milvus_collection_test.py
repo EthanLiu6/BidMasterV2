@@ -1,5 +1,5 @@
 import numpy as np
-from pymilvus import MilvusClient, DataType
+from pymilvus import MilvusClient, DataType, connections, Collection
 
 from utils import common_utils
 
@@ -83,11 +83,57 @@ def test04_entities_num(db_path, collection_name):
     print(stats)
 
 
+def test05_show_collection():
+    # 方式1：使用 Milvus Lite（嵌入式）
+    # client = MilvusClient('./test.db')
+    client = MilvusClient('../src/vectorstore/db/Bid.db')
+
+    # 方式2：如果连接标准 Milvus 服务（需先启动服务）
+    # client = MilvusClient(uri="http://localhost:19530")
+
+    # 查看所有 Collection
+    collections = client.list_collections()
+    print("所有 Collection:", collections)
+
+    # 查看某个 Collection 的详细信息
+    # collection_name = "test_collection"
+    collection_name = "biaodewu_info_collection"
+    if collection_name in collections:
+        # 获取 Collection 对象（MilvusClient 方式）
+        collection_info = client.describe_collection(collection_name)
+        print("Collection 信息:", collection_info)
+
+        # 获取数据量
+        num_entities = client.query(collection_name, filter="", output_fields=["count(*)"])
+        print(f"数据量: {num_entities[0]['count(*)']} 条")
+
+        # 查询前几条数据
+        print("\n查询前5条数据:")
+        results = client.query(
+            collection_name=collection_name,
+            filter="",  # 空过滤器表示查询所有
+            limit=5,  # 限制返回5条
+            output_fields=["*"]  # 返回所有字段
+        )
+        for i, item in enumerate(results, 1):
+            print(f"记录 {i}: {item}")
+
+
+    else:
+        print(f"Collection '{collection_name}' 不存在")
+
+    # 关闭连接
+    client.close()
+
+
 if __name__ == '__main__':
     # test01_create_collection()
     # test02_search_data()
     # test03_rerank_data()
 
-    project_path = common_utils.find_project_root()
-    db_path = str(project_path.joinpath('src/vectorstore/db/Bid.db'))
-    test04_entities_num(db_path, 'laws_collection')
+    # project_path = common_utils.find_project_root()
+    # db_path = str(project_path.joinpath('src/vectorstore/db/Bid.db'))
+    # test04_entities_num(db_path, 'laws_collection')
+
+    test05_show_collection()
+
