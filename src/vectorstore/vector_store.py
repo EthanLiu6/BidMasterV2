@@ -53,7 +53,7 @@ def store_init_laws(
 
                 batch_data = [
                     {
-                        "law_vector": batch_law_text_emb,
+                        "law_vector": batch_law_text_emb.tolist(),
                         "law_text": batch_law_text,
                         "from_file": cur_law_name
                     }
@@ -111,7 +111,7 @@ def store_add_law(
 
             batch_data = [
                 {
-                    "law_vector": batch_law_text_emb,
+                    "law_vector": batch_law_text_emb.tolist(),
                     "law_text": batch_law_text,
                     "from_file": cur_law_name
                 }
@@ -136,22 +136,21 @@ if __name__ == '__main__':
     stc_model_path = project_path.joinpath('models/thenlper/gte-large-zh')
     stc_model = SentenceModel(model_path=stc_model_path)
     print("使用模型的维度：", stc_model.dim)
-    # laws_dir = project_path.joinpath('processed_data/laws')
-    # db_path = str(project_path.joinpath('src/vectorstore/db/Bid.db'))
-    # store_init_laws(laws_dir,
-    #                 sentence_model=stc_model,
-    #                 encode_dim=stc_model.dim,
-    #                 milvus_server_address=db_path,
-    #                 collection_name='laws_collection')
+    laws_dir = project_path.joinpath('processed_data/laws')
+    db_path = str(project_path.joinpath('src/vectorstore/db/Bid.db'))
+    store_init_laws(laws_dir,
+                    sentence_model=stc_model,
+                    encode_dim=stc_model.dim,
+                    milvus_server_address=db_path,
+                    collection_name='laws_collection')
 
-    from create_collections import create_laws_collection
-    test_db_path = str(project_path.joinpath('test/test.db'))
-    # create_laws_collection(test_db_path, stc_model.dim, 'test_collection')
-    law_file_path = project_path.joinpath('processed_data/laws/招标投标领域公平竞争审查规则.json')
-    store_add_law(
-        laws_file_path=law_file_path,
-        sentence_model=stc_model,
-        milvus_server_address=test_db_path,
-        collection_name='test_collection'
-    )
-
+    # from create_collections import create_laws_collection
+    # test_db_path = str(project_path.joinpath('test/test.db'))
+    # # create_laws_collection(test_db_path, stc_model.dim, 'test_collection')
+    # law_file_path = project_path.joinpath('processed_data/laws/招标投标领域公平竞争审查规则.json')
+    # store_add_law(
+    #     laws_file_path=law_file_path,
+    #     sentence_model=stc_model,
+    #     milvus_server_address=test_db_path,
+    #     collection_name='test_collection'
+    # )
