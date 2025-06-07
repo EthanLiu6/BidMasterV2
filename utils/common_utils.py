@@ -100,9 +100,10 @@ def excel2json(origin_file, target_file, origin_sheet_name=0):
     print('succeed!')
 
 
-def get_dir_files_name(dir_path) -> list[str]:
+def get_dir_files_name(dir_path) -> list:
     """获取指定文件夹下的所有文件名，返回所有文件名的列表格式"""
 
+    dir_path = Path(dir_path)
     if not os.path.isdir(dir_path):
         return []
 
@@ -115,7 +116,17 @@ def get_dir_files_name(dir_path) -> list[str]:
     return files
 
 
+def get_path_file_name(file_path) -> str:
+    file_path = Path(file_path)
+    if os.path.isfile(file_path):
+        return file_path.name
+    else:
+        raise '输入文件路径有问题！'
+
+
 if __name__ == '__main__':
     project_path = find_project_root()
     laws_files = get_dir_files_name(project_path.joinpath('processed_data/laws'))
     print(laws_files)
+    law_file = get_path_file_name(project_path.joinpath('processed_data/laws/中华人民共和国招标投标法实施条例.csv'))
+    print(law_file)
