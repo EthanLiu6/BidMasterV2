@@ -1,6 +1,8 @@
 import numpy as np
 from pymilvus import MilvusClient, DataType
 
+from utils import common_utils
+
 
 def test01_create_collection():
     entities = [
@@ -75,7 +77,17 @@ def test03_rerank_data():
         print(f'doc_text: {result.text}')
 
 
+def test04_entities_num(db_path, collection_name):
+    client = MilvusClient(uri=db_path)
+    stats = client.get_collection_stats(collection_name)
+    print(stats)
+
+
 if __name__ == '__main__':
     # test01_create_collection()
     # test02_search_data()
-    test03_rerank_data()
+    # test03_rerank_data()
+
+    project_path = common_utils.find_project_root()
+    db_path = str(project_path.joinpath('src/vectorstore/db/Bid.db'))
+    test04_entities_num(db_path, 'laws_collection')
