@@ -15,3 +15,5 @@ models/*
 !models/models.list
 !models/down_models_HF.py
 !models/down_models_MS.py
+
+src/vectorstore/Bid.db
