@@ -16,11 +16,9 @@ class BasePrompt(ABC):
         """
         self.template = template
 
-
-    def build_prompt(self, question: str, context: str = "") -> str:
+    def build_prompt(self, question: str, context: str | list[str]) -> str:
         """用关键字填充模板，生成 prompt 文本"""
         return self.template.format(question=question, context=context)
 
     def __repr__(self):
         return f"<{self.__class__.__name__} template={self.template}>"
-
