@@ -3,7 +3,7 @@ from pathlib import Path
 
 from pymilvus import MilvusClient
 
-from milvus_tool import insert_data
+from milvus_tool import insert_data, upsert_data
 from utils import common_utils
 from src.model_backend.sentence_model import SentenceModel
 
@@ -117,13 +117,13 @@ def store_add_law(
                 }
                 for batch_law_text_emb, batch_law_text in zip(batch_law_texts_emb, batch_law_texts)
             ]
-            insert_data(
+            upsert_data(
                 milvus_client_object=client,
                 collection_name=collection_name,
                 data=batch_data,
             )
 
-        print(f"current {cur_law_file_name} was inserted！")
+        print(f"current {cur_law_file_name} was upsert！")
 
     else:
         raise '需要满足json格式的条文数据'
