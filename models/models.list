@@ -1,0 +1,28 @@
+sentence model:
+'moka-ai/m3e-base'✅
+'m3e-large'✅
+'sentence-transformers/all-MiniLM-L12-v2'❌
+"BAAI/bge-small-zh-v1.5"❌
+"BAAI/bge-m3"✅
+"BAAI/bge-large-zh-v1.5"✅ used✅
+'有道：BCE'✅
+'ChatLaw-text2vec'❌
+'richinfoai/ritrieve_zh_v1'✅
+'thenlper/gte-large-zh'✅ used✅
+
+QA model:
+'Qwen/Qwen3-32B'❌
+'Qwen/Qwen3-8B'✅
+'deepseek-ai/DeepSeek-R1-Distill-Qwen-7B'❌
+'deepseek-ai/DeepSeek-Prover-V2-7B'❌
+'deepseek-ai/DeepSeek-R1-Distill-Llama-8B'❌
+'deepseek-ai/deepseek-llm-7b-chat'❌
+'baichuan-inc/Baichuan-7B'❌
+'baichuan-inc/Baichuan2-7B-Chat'❌
+'THUDM/GLM-4-9B-0414'❌
+'THUDM/glm-4-9b'❌
+'THUDM/glm-4-9b-chat'❌
+'zake7749/Llama-3.2-3B-it-chinese-kyara'❌
+'hfl/chinese-llama-2-7b'❌
+
+
