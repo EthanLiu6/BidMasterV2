@@ -1,5 +1,5 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from base_model import BaseModel
+from src.model_backend.base_model import BaseModel
 
 
 class Qwen3Model(BaseModel):
