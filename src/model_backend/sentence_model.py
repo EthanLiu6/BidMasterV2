@@ -2,7 +2,7 @@ from typing import List
 from transformers import AutoTokenizer, AutoModel
 import torch.nn.functional as F
 from src.model_backend.base_model import BaseModel
-
+import torch
 
 class SentenceModel(BaseModel):
     def __init__(self, model_path, model_name=None) -> None:
@@ -12,7 +12,7 @@ class SentenceModel(BaseModel):
         return AutoTokenizer.from_pretrained(self.model_path)
 
     def _load_model(self):
-        return AutoModel.from_pretrained(self.model_path)
+        return AutoModel.from_pretrained(self.model_path, device_map=self.device)
 
     def generate(self, prompt: str, *args, **kwargs):
         pass
@@ -20,14 +20,23 @@ class SentenceModel(BaseModel):
     def encode(self, sentences: str | List[str], *args, **kwargs):
         """句子嵌入模型自定义方法，用于返回句子嵌入后的结果"""
 
-        # Tokenize the input texts
-        batch_dict = self.tokenizer(sentences, max_length=512, padding=True, truncation=True, return_tensors='pt')
+        # Tokenize and move to same device as model
+        batch_dict = self.tokenizer(
+            sentences, 
+            max_length=512, 
+            padding=True, 
+            truncation=True, 
+            return_tensors='pt'
+        ).to(self.device)  # Critical: move inputs to model's device
 
-        outputs = self.model(**batch_dict)
+        with torch.no_grad():
+            outputs = self.model(**batch_dict)
+        
         embeddings = outputs.last_hidden_state[:, 0]
         embeddings = F.normalize(embeddings, p=2, dim=1)
 
-        return embeddings, embeddings.shape
+        return embeddings.cpu(), embeddings.shape  # Return to CPU for compatibility
+
 
 
 if __name__ == '__main__':

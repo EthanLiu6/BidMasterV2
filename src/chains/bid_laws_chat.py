@@ -31,7 +31,7 @@ if __name__ == '__main__':
     from utils.common_utils import find_project_root
     root_path = find_project_root()
 
-    qwen3 = Qwen3Model(model_path=root_path.joinpath('models/Qwen/Qwen3-0.6B'))
+    qwen3 = Qwen3Model(model_path=root_path.joinpath('models/Qwen/Qwen3-8B'))
     stc_model = SentenceModel(model_path=root_path.joinpath('models/thenlper/gte-large-zh'))
     client = MilvusClient(str(root_path.joinpath('src/vectorstore/db/Bid.db')))
     while 1:

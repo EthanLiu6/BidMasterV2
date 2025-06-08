@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
-
+from utils.set_device import device
 
 class BaseModel(ABC):
 
     def __init__(self, model_path, model_name=None) -> None:
+        self.device = device
         self.model_path = model_path
         self.model_name = model_name
         self.tokenizer = self._load_tokenizer()

@@ -1,6 +1,6 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from src.model_backend.base_model import BaseModel
-
+import torch
 
 class Qwen3Model(BaseModel):
 
@@ -14,7 +14,7 @@ class Qwen3Model(BaseModel):
         return AutoModelForCausalLM.from_pretrained(
             self.model_path,
             torch_dtype="auto",
-            device_map="auto"
+            device_map=self.device
         )
 
     def generate(self, prompt: str, enable_thinking=True, *args, **kwargs):
@@ -40,11 +40,20 @@ class Qwen3Model(BaseModel):
         )
         model_inputs = self.tokenizer([text], return_tensors="pt").to(self.model.device)
 
-        # conduct text completion
-        generated_ids = self.model.generate(
-            **model_inputs,
-            max_new_tokens=32768
-        )
+                    # Generate response
+        with torch.no_grad():
+            generated_ids = self.model.generate(
+                **model_inputs,
+                max_new_tokens=kwargs.get('max_new_tokens', 32768),
+                temperature=kwargs.get('temperature', 0.7),
+                top_p=kwargs.get('top_p', 0.9),
+                do_sample=True
+            )
+        # # conduct text completion
+        # generated_ids = self.model.generate(
+        #     **model_inputs,
+        #     max_new_tokens=32768
+        # )
         output_ids = generated_ids[0][len(model_inputs.input_ids[0]):].tolist()
 
         if enable_thinking:
