@@ -17,4 +17,4 @@ models/*
 !models/down_models_MS.py
 !models/test_model.py
 
-*.db
+**/*.db
