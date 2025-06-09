@@ -1,6 +1,10 @@
 from src.model_backend import Qwen3Model
 
 from src.prompt import QueryAnalysisPrompt
+from config.data_config import QUERY_CLS
+
+
+__all__ = ['query_cls_chat']
 
 
 def query_cls_chat(
@@ -8,10 +12,9 @@ def query_cls_chat(
         query: str,
         thinking: bool = True
 ) -> str:
-
     bid_info_prompt = QueryAnalysisPrompt().build_prompt(
         question=query,
-        context=['招投标法律法规相关', '招投标公示信息相关', '与招投标无关问题']
+        context=QUERY_CLS
     )
 
     return llm_model.generate(prompt=bid_info_prompt, enable_thinking=thinking)

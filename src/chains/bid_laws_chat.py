@@ -6,6 +6,8 @@ from src.recall.search_knowledge import dense_law_search
 
 from src.prompt import LawPrompt
 
+__all__ = ['bid_laws_chat']
+
 
 def bid_laws_chat(
         llm_model: Qwen3Model,
@@ -29,6 +31,7 @@ def bid_laws_chat(
 
 if __name__ == '__main__':
     from utils.common_utils import find_project_root
+
     root_path = find_project_root()
 
     qwen3 = Qwen3Model(model_path=root_path.joinpath('models/Qwen/Qwen3-8B'))

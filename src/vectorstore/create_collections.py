@@ -1,8 +1,13 @@
 from pymilvus import MilvusClient, DataType
 
+__all__ = [
+    'create_laws_collection',
+    'create_biaodewu_info_collection'
+]
+
 
 def create_laws_collection(
-        milvus_server_address,
+        milvus_server_address: str,
         encode_dim: int,
         collection_name: str = 'laws_collection',
         **kwargs
@@ -19,7 +24,7 @@ def create_laws_collection(
     # TODO: set 'collection_name' to 'config'
 
     client = MilvusClient(
-        uri=milvus_server_address
+        uri=str(milvus_server_address)
     )
 
     client.drop_collection(collection_name)
@@ -42,7 +47,7 @@ def create_laws_collection(
 
 
 def create_biaodewu_info_collection(
-        milvus_server_address,
+        milvus_server_address: str,
         encode_dim: int,
         collection_name: str = 'biaodewu_info_collection',
         **kwargs
@@ -58,7 +63,7 @@ def create_biaodewu_info_collection(
     """
 
     client = MilvusClient(
-        uri=milvus_server_address
+        uri=str(milvus_server_address)
     )
     client.drop_collection(collection_name)
     schema = client.create_schema(auto_id=True, enable_dynamic_field=True)
@@ -77,7 +82,6 @@ def create_biaodewu_info_collection(
     client.create_collection(collection_name=collection_name, schema=schema, index_params=index_params)
     print(f'{collection_name}创建成功！')
     client.close()
-
 
 
 if __name__ == '__main__':

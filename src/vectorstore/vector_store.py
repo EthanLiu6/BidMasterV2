@@ -3,9 +3,16 @@ from pathlib import Path
 
 from pymilvus import MilvusClient
 
-from milvus_tool import insert_data, upsert_data
+from src.vectorstore.milvus_tool import insert_data, upsert_data
 from utils import common_utils
 from src.model_backend.sentence_model import SentenceModel
+
+__all__ = [
+    'store_init_laws',
+    'store_init_biaodewu_infos',
+    'store_add_law',
+    'store_add_biaodewu_info'
+]
 
 
 def store_init_laws(
@@ -19,7 +26,7 @@ def store_init_laws(
     """是对给定文件夹下的json格式的法律数据进行存储(初始化存储)"""
 
     # init store的时候确保collection内无数据（新建）
-    from create_collections import create_laws_collection
+    from src.vectorstore.create_collections import create_laws_collection
     create_laws_collection(
         milvus_server_address=milvus_server_address,
         encode_dim=encode_dim,
@@ -142,7 +149,7 @@ def store_init_biaodewu_infos(
     """是对给定文件夹下的json格式的标的物数据进行存储(初始化存储)"""
 
     # init store的时候确保collection内无数据（新建）
-    from create_collections import create_biaodewu_info_collection
+    from src.vectorstore.create_collections import create_biaodewu_info_collection
     create_biaodewu_info_collection(
         milvus_server_address=milvus_server_address,
         encode_dim=encode_dim,
@@ -165,7 +172,6 @@ def store_init_biaodewu_infos(
             biaodewu_info_texts = [str(biaodewu_info) for biaodewu_info in cur_biaodewu_info_data]
             print("当前文档内容条数：", len(biaodewu_info_texts))
 
-
             # Note: 与create_laws_collection字段保持一致
             # 防止内存溢出，按批次进行
             for batch_idx in range(0, len(biaodewu_info_texts), batch_size):
@@ -181,7 +187,8 @@ def store_init_biaodewu_infos(
                         "biaodewu_info_text": batch_biaodewu_info_text,
                         "bid_type": cur_biaodewu_info_name
                     }
-                    for batch_biaodewu_info_text_emb, batch_biaodewu_info_text in zip(batch_biaodewu_info_texts_emb, batch_biaodewu_info_texts)
+                    for batch_biaodewu_info_text_emb, batch_biaodewu_info_text in
+                    zip(batch_biaodewu_info_texts_emb, batch_biaodewu_info_texts)
                 ]
                 insert_data(
                     milvus_client_object=client,

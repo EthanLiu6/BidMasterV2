@@ -1,6 +1,8 @@
 from pymilvus import MilvusClient
 from typing import Dict, List, Union
 
+__all__ = ['insert_data', 'upsert_data']
+
 
 def insert_data(
         milvus_client_object: MilvusClient,

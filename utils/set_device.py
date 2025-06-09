@@ -1,3 +1,3 @@
-import torch
+from torch.cuda import is_available
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = "cuda" if is_available() else "cpu"

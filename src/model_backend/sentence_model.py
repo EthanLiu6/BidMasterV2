@@ -1,8 +1,11 @@
 from typing import List
+
 from transformers import AutoTokenizer, AutoModel
 import torch.nn.functional as F
+from torch import no_grad
+
 from src.model_backend.base_model import BaseModel
-import torch
+
 
 class SentenceModel(BaseModel):
     def __init__(self, model_path, model_name=None) -> None:
@@ -22,21 +25,20 @@ class SentenceModel(BaseModel):
 
         # Tokenize and move to same device as model
         batch_dict = self.tokenizer(
-            sentences, 
-            max_length=512, 
-            padding=True, 
-            truncation=True, 
+            sentences,
+            max_length=512,
+            padding=True,
+            truncation=True,
             return_tensors='pt'
         ).to(self.device)  # Critical: move inputs to model's device
 
-        with torch.no_grad():
+        with no_grad():
             outputs = self.model(**batch_dict)
-        
+
         embeddings = outputs.last_hidden_state[:, 0]
         embeddings = F.normalize(embeddings, p=2, dim=1)
 
         return embeddings.cpu(), embeddings.shape  # Return to CPU for compatibility
-
 
 
 if __name__ == '__main__':

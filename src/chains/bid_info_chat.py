@@ -6,6 +6,8 @@ from src.recall.search_knowledge import dense_biaodewu_search
 
 from src.prompt import BidInfoPrompt
 
+__all__ = ['bid_info_chat']
+
 
 def bid_info_chat(
         llm_model: Qwen3Model,

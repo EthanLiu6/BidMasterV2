@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from utils.set_device import device
 
+
 class BaseModel(ABC):
 
     def __init__(self, model_path, model_name=None) -> None:

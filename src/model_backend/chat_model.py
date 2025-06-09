@@ -1,6 +1,7 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from src.model_backend.base_model import BaseModel
-import torch
+from torch import no_grad
+
 
 class Qwen3Model(BaseModel):
 
@@ -40,8 +41,8 @@ class Qwen3Model(BaseModel):
         )
         model_inputs = self.tokenizer([text], return_tensors="pt").to(self.model.device)
 
-                    # Generate response
-        with torch.no_grad():
+        # Generate response
+        with no_grad():
             generated_ids = self.model.generate(
                 **model_inputs,
                 max_new_tokens=kwargs.get('max_new_tokens', 32768),
@@ -73,10 +74,6 @@ class Qwen3Model(BaseModel):
             # non-think mode processing
             content = self.tokenizer.decode(output_ids, skip_special_tokens=True).strip("\n")
             return content
-
-
-
-
 
 
 if __name__ == '__main__':
