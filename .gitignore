@@ -18,3 +18,4 @@ models/*
 !models/test_model.py
 
 **/*.db
+**/*.db.lock
