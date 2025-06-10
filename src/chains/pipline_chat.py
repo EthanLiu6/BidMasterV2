@@ -26,14 +26,14 @@ biaodewu_add_file_path = BIAODEWU_ADD_FILE_PATH  # None
 class ChatLine:
     def __init__(self):
         self.history = []
-        self.queris = []
+        self.queries = []
         self.base_prompt = BasePrompt(
             template='作为一名招投标智能助手，根据用户的问题做出相关解答：\n用户问题：\n{question}\n现有知识：\n{context}'
         )
 
     def query_cls_and_select_branch(self, query):
 
-        self.queris.append(query)
+        self.queries.append(query)
 
         query_type = query_cls_chat(
             llm_model=QUERY_ANALYSIS_MODEL,
