@@ -26,7 +26,7 @@ def bid_laws_chat(
         context=res_law_texts
     )
 
-    return llm_model.generate(prompt=law_prompt, enable_thinking=thinking)
+    return llm_model.generate_unstream(prompt=law_prompt, enable_thinking=thinking)
 
 
 if __name__ == '__main__':

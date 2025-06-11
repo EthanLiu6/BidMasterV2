@@ -17,7 +17,10 @@ class SentenceModel(BaseModel):
     def _load_model(self):
         return AutoModel.from_pretrained(self.model_path, device_map=self.device)
 
-    def generate(self, prompt: str, *args, **kwargs):
+    def generate_unstream(self, prompt: str, *args, **kwargs):
+        pass
+
+    def generate_stream(self, prompt: str, *args, **kwargs):
         pass
 
     def encode(self, sentences: str | List[str], *args, **kwargs):

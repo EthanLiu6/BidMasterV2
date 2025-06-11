@@ -23,6 +23,11 @@ class BaseModel(ABC):
         pass
 
     @abstractmethod
-    def generate(self, prompt: str, *args, **kwargs):
+    def generate_unstream(self, prompt: str, *args, **kwargs):
         """输入提示语，输出生成的文本，依据需求增加所需参数"""
+        pass
+
+    @abstractmethod
+    def generate_stream(self, prompt: str, *args, **kwargs):
+        """输入提示语，流式输出生成的文本，依据需求增加所需参数"""
         pass

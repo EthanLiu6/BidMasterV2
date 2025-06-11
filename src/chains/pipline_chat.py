@@ -70,7 +70,7 @@ class ChatLine:
 
     @staticmethod
     def base_answer(process_query):
-        return chat_model.generate(process_query)
+        return chat_model.generate_unstream(process_query)
 
 
 if __name__ == '__main__':

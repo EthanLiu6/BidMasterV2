@@ -26,7 +26,7 @@ def bid_info_chat(
         context=res_bid_info_texts
     )
 
-    return llm_model.generate(prompt=bid_info_prompt, enable_thinking=thinking)
+    return llm_model.generate_unstream(prompt=bid_info_prompt, enable_thinking=thinking)
 
 
 if __name__ == '__main__':
